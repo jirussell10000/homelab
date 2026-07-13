@@ -3,7 +3,7 @@
 # Description: Validates the length of a password to be larger than 8 characters long.
 
 
-pasword=$1
+password=$1
 
 # Validation
 if [[ ${#password} -lt 8 ]]; then
