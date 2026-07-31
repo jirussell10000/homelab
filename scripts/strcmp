@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Description: Compares two strings.
+
+
+str1="$1"
+str2="$2"
+
+[[ "$str1" == "$str2" ]] && echo "Equal"
+[[ "$str1" != "$str2" ]] && echo "Not equal"
+
+
+
+
+

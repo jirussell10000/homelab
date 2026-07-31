@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Description: Checks whether two files are the same using SHA-256 hash pattern comparison.
+
+
+# Check if correct number of arguments are present
+if [[ $# -ne 2 ]]; then
+  echo "Error: Incorrect number of arguments. Two are required." >&2
+  echo "Usage: $0 <file1> <file2>" >&2
+  exit 1
+fi
+
+# Check whether busybox is installed. If not install it.
+command -v busybox &>/dev/null || sudo apt-get install busybox
+
+hash1="$(busybox sha256sum $1)"
+hash2="$(busybox sha256sum $2)"
+
+# Compare file hash patterns
+if [[ "$hash1" != "$hash2" ]]; then
+  echo "Files are different"
+else
+  echo "Files are the same"
+fi
+
+exit 0
