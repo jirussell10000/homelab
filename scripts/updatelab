@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# Description: Updates all Ubuntu servers in homelab from host machine. Server IP addresses are aliased in /etc/hosts file. SSH keys are configured. Servers are only accessed using the keys (no passwords are allowed).
+
+SERVERS=("ubs0"	"ubs1")
+
+echo "=============================================="
+echo "Starting multi-server infrastructure update..."
+echo "=============================================="
+
+for SERVER in "${SERVERS[@]}"; do
+  echo -e "\e[1;33m========================\e[0m"
+  echo -e "\e[1;33mConnecting to: ${SERVER}\e[0m"
+  echo -e "\e[1;33m========================\e[0m"
+
+  # Execute commands remotely over SSH. Requires user password on server.
+  ssh -t -o ConnectTimeout=5 "$SERVER" "
+    [[ -x $(command -v apt-get) ]] && \ 
+	sudo apt-get update && \
+	sudo apt-get upgrade -y && \
+	sudo apt-get autoremove && \
+	exit
+	"
+
+  if [[ $? -eq 0 ]]; then
+	echo "$(date +"%F %T") Successfully updated ${SERVER}"
+  else
+  	echo "$(date +"%F %T") Error updating ${SERVER}"
+  fi >> homelab.log
+done
+
+echo -e "\e[1;32m+++++++++++++++++++++++++++++\e[0m"
+echo -e "\e[1;32mMulti-server update completed\e[0m"
+echo -e "\e[1;32m+++++++++++++++++++++++++++++\e[0m"
