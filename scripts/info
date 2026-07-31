@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Description: Displays the user, and amount of files in the current directory.
+
+
+echo "Directory:  $PWD"
+echo "User:       $USER"
+echo "File count: $(ls . | wc -l)"
+echo "Date:       $(date)"

@@ -19,6 +19,7 @@ for SERVER in "${SERVERS[@]}"; do
 	sudo apt-get update && \
 	sudo apt-get upgrade -y && \
 	sudo apt-get autoremove && \
+	sudo apt-get clean && \
 	exit
 	"
 
