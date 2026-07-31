@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Description: Tell the color of the fruit
+
+
+# string test: if the number of arguments is not equal to 1
+if [[ $# -ne 1 ]]; then
+	echo "Usage: $0 <fruit>" >&2
+	exit 1
+fi
+
+fruit="$1"
+
+case "$fruit" in
+	apple)
+		echo "red"
+		;;
+	banana)
+		echo "yellow"
+		;;
+	kiwi)
+		echo "green?"
+		;;
+	*)
+		echo "Uknown fruit: $fruit" >&2
+		exit 1
+		;;
+esac
