@@ -7,13 +7,10 @@
 PKGS="wget curl git brave-browser ffmpeg yt-dlp openssh-server"
 
 sudo apt update
-
-echo "Installing packages..."
 sudo apt install "$PKGS"
-
 sudo apt upgrade -y
 
-echo "Installing starship prompt"
+echo "Installing starship prompt..."
 curl -sS https://starship.rs/install.sh | sh
 
 echo "Installing Docker..."
