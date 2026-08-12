@@ -18,10 +18,10 @@ for SERVER in "${SERVERS[@]}"; do
 
   # Execute commands remotely over SSH. Requires user password on server.
   ssh -t -o ConnectTimeout=5 "$SERVER" "
-    [[ -x $(command -v apt-get) ]] && \ 
+    [[ -x $(command -v apt-get) ]] && \
 	sudo apt-get update && \
 	sudo apt-get upgrade -y && \
-	sudo apt-get autoremove && \
+	sudo apt-get autoremove -y && \
 	sudo apt-get clean && \
 	exit
 	"
