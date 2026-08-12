@@ -6,6 +6,7 @@
 # Servers are only accessed using authorized keys.
 
 SERVERS=("ubs0"	"ubs1")
+LOG="/var/log/update-homelab.log"
 
 echo "=============================================="
 echo "Starting multi-server infrastructure update..."
@@ -22,17 +23,17 @@ for SERVER in "${SERVERS[@]}"; do
 	sudo apt-get update && \
 	sudo apt-get upgrade -y && \
 	sudo apt-get autoremove -y && \
-	sudo apt-get clean && \
-	exit
+	sudo apt-get clean
 	"
 
   if [[ $? -eq 0 ]]; then
-	echo "$(date +"%F %T") Successfully updated ${SERVER}"
+	echo "INFO: $(date +"%F %T") Successfully updated ${SERVER}" >> "$LOG"
+    echo -e "\e[1;32m+++++++++++++++++++++++++++++\e[0m"
+    echo -e "\e[1;32mMulti-server update completed\e[0m"
+    echo -e "\e[1;32m+++++++++++++++++++++++++++++\e[0m"
   else
-  	echo "$(date +"%F %T") Error updating ${SERVER}"
-  fi >> update-homelab.log
+  	echo "$(date +"%F %T") Error updating ${SERVER}" >> "$LOG"
+  fi
 done
 
-echo -e "\e[1;32m+++++++++++++++++++++++++++++\e[0m"
-echo -e "\e[1;32mMulti-server update completed\e[0m"
-echo -e "\e[1;32m+++++++++++++++++++++++++++++\e[0m"
+
