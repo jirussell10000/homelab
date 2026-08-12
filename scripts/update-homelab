@@ -1,6 +1,9 @@
 #!/bin/bash
 
-# Description: Updates all Ubuntu servers in homelab from control machine. Server IP addresses are aliased in /etc/hosts file. SSH keys are configured. Servers are only accessed using the keys (no passwords are allowed).
+# Description: Updates all Ubuntu servers in homelab from control machine.
+# Server IP addresses (via tailscale) are aliased in /etc/hosts file.
+# SSH keys must already be configured.
+# Servers are only accessed using authorized keys.
 
 SERVERS=("ubs0"	"ubs1")
 
