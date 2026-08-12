@@ -6,7 +6,7 @@
 # Check if correct number of arguments are present
 if [[ $# -ne 2 ]]; then
   echo "Error: Incorrect number of arguments. Two are required." >&2
-  echo "Usage: $0 <file1> <file2>" >&2
+  echo "usage: $0 <file1> <file2>" >&2
   exit 1
 fi
 
