@@ -30,7 +30,7 @@ for SERVER in "${SERVERS[@]}"; do
 	echo "$(date +"%F %T") Successfully updated ${SERVER}"
   else
   	echo "$(date +"%F %T") Error updating ${SERVER}"
-  fi >> homelab.log
+  fi >> update-homelab.log
 done
 
 echo -e "\e[1;32m+++++++++++++++++++++++++++++\e[0m"
