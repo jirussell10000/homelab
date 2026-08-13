@@ -22,7 +22,8 @@ for file in ~/.ssh/*; do
 done
 
 if [[ "$key_added" == true ]]; then
-  echo "Keys are loaded in the agent"
+  echo -e "\nKeys are loaded in the agent:"
+  echo "$(ssh-add -l)"
 else
   echo "No valid private keys were loaded"
 fi
