@@ -6,16 +6,12 @@
 # Servers are only accessed using authorized keys.
 
 SERVERS=("ubs0"	"ubs1")
-LOG="/var/log/update-homelab.log"
+LOGFILE="./update-homelab.log"
 
-echo "=============================================="
-echo "Starting multi-server infrastructure update..."
-echo "=============================================="
+echo -e "\e[1;36mINFO \e[1;30m$(date +"%F %T") Starting multi-server infrastructure update...\e[0m"
 
 for SERVER in "${SERVERS[@]}"; do
-  echo -e "\e[0;33m===========================\e[0m"
-  echo -e "\e[0;33mConnecting to: ${SERVER}...\e[0m"
-  echo -e "\e[0;33m===========================\e[0m"
+  echo -e "\e[1;36mINFO\e[1;30m \e[0;33mUpdating server ${SERVER}...\e[0m"
 
   # Execute commands remotely over SSH. Requires user password on server.
   ssh -t -o ConnectTimeout=5 "$SERVER" "
@@ -27,12 +23,10 @@ for SERVER in "${SERVERS[@]}"; do
 	"
 
   if [[ $? -eq 0 ]]; then
-	echo "INFO: $(date +"%F %T") Successfully updated ${SERVER}" >> "$LOG"
-    echo -e "\e[1;32m+++++++++++++++++++++++++++++\e[0m"
-    echo -e "\e[1;32mMulti-server update completed\e[0m"
-    echo -e "\e[1;32m+++++++++++++++++++++++++++++\e[0m"
+	echo -e "\e[1;36mINFO\e[1;30m $(date +"%F %T") Update ${SERVER} (\e[1;32msuccessful\e[1;30m)with exit status 0\e[0m" >> "$LOGFILE"
+	exit 0
   else
-  	echo "$(date +"%F %T") Error updating ${SERVER}" >> "$LOG"
+  	echo "\e[1;31mERROR\e[0m $(date +"%F %T") Update server ${SERVER} (\e[1;31mfailed\e[0m)" >> "$LOGFILE"
   fi
 done
 

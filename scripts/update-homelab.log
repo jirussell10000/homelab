@@ -21,3 +21,12 @@
 2026-08-12 12:30:02 Successfully updated ubs1
 2026-08-12 12:52:09 Error updating ubs0
 2026-08-12 12:52:14 Error updating ubs1
+ERROR: 2026-08-12 13:09:24 Error updating ubs0
+ERROR: 2026-08-12 13:09:29 Error updating ubs1
+[1;36mINFO[1;30m 2026-08-12 18:11:03 Update ubs0 ([1;32msuccessful[1;30m)with exit status 0[0m
+\e[1;31mERROR\e[0m 2026-08-12 18:11:49 Update server ubs0 (\e[1;31mfailed\e[0m)
+\e[1;31mERROR\e[0m 2026-08-12 18:11:55 Update server ubs1 (\e[1;31mfailed\e[0m)
+[1;36mINFO[1;30m 2026-08-12 18:12:52 Update ubs0 ([1;32msuccessful[1;30m)with exit status 0[0m
+\e[1;31mERROR\e[0m 2026-08-12 18:13:15 Update server ubs0 (\e[1;31mfailed\e[0m)
+[1;36mINFO[1;30m 2026-08-12 18:13:34 Update ubs1 ([1;32msuccessful[1;30m)with exit status 0[0m
+[1;36mINFO[1;30m 2026-08-12 18:17:12 Update ubs0 ([1;32msuccessful[1;30m)with exit status 0[0m
