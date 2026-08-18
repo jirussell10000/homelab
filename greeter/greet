@@ -2,6 +2,6 @@
 
 echo "==================================="
 echo "${GREETING:-Hello}, ${NAME:-World}!"
-echo "Running in container: $(hostname)"
+echo "Running in: $(hostname)"
 echo "==================================="
 

@@ -1,5 +1,0 @@
-#!/bin/bash
-
-# Says hello to active user.
-
-echo "Hello $USER"
