@@ -1,32 +1,34 @@
 #!/bin/bash
 
+# IMPORTANT: Ensure servers are only accessed using authorized SSH keys. No password access.
+
 # Description: Updates all Ubuntu servers in homelab from control machine.
-# Server IP addresses (via tailscale) are aliased in /etc/hosts file.
-# SSH keys must already be configured.
-# Servers are only accessed using authorized keys.
+#              Server IP addresses (via tailscale) are aliased in /etc/hosts file.
+#              SSH keys must already be configured.
+#              Create a secret file for the script to reference your password to.
 
 SERVERS=("ubs0"	"ubs1")
 LOGFILE="./update-homelab.log"
+PASSWORD=$(read -r password < ../.secret-password)
 
-echo -e "\e[1;36mINFO \e[1;30m$(date +"%F %T") Starting multi-server infrastructure update...\e[0m"
+echo -e "\e[1;36m[INFO] \e[1;30m$(date +"%F %T") Starting multi-server infrastructure update...\e[0m"
 
 for SERVER in "${SERVERS[@]}"; do
-  echo -e "\e[1;36mINFO\e[1;30m \e[0;33mUpdating server ${SERVER}...\e[0m"
+  echo -e "\e[1;36m[INFO]\e[1;30m \e[0;33mUpdating server ${SERVER}...\e[0m"
 
   # Execute commands remotely over SSH. Requires user password on server.
   ssh -t -o ConnectTimeout=5 "$SERVER" "
     [[ -x $(command -v apt-get) ]] && \
-	sudo apt-get update && \
+	sudo -S apt-get update <<< "$PASSWORD" && \
 	sudo apt-get upgrade -y && \
 	sudo apt-get autoremove -y && \
 	sudo apt-get clean
 	"
 
   if [[ $? -eq 0 ]]; then
-	echo -e "\e[1;36mINFO\e[1;30m $(date +"%F %T") Update ${SERVER} (\e[1;32msuccessful\e[1;30m)with exit status 0\e[0m" >> "$LOGFILE"
-	exit 0
+	echo -e "\e[1;36m[INFO]\e[1;30m $(date +"%F %T") Update ${SERVER} (\e[1;32msuccessful\e[1;30m)with exit status 0\e[0m" >> "$LOGFILE"
   else
-  	echo "\e[1;31mERROR\e[0m $(date +"%F %T") Update server ${SERVER} (\e[1;31mfailed\e[0m)" >> "$LOGFILE"
+  	echo "\e[1;31m[ERROR]\e[0m $(date +"%F %T") Update server ${SERVER} (\e[1;31mfailed\e[0m)" >> "$LOGFILE"
   fi
 done
 

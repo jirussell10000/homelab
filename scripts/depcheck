@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Description: Checks to see if dependencies are installed for: git, docker, and kubernetes.
+# Description: Checks to see if dependencies are installed for git, docker, and kubernetes.
 
 
 for cmd in git docker kubectl; do

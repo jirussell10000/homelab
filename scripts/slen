@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# Description: Displays the length of the string.
-
+# Description: Displays the length of a string
 
 string=$1
+
 echo "Length: ${#string}"
 
-
+exit 0
