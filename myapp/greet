@@ -1,2 +1,5 @@
 #!/bin/bash
-echo "hi from my container"
+
+# Says hello to active user.
+
+echo "Hello $USER"

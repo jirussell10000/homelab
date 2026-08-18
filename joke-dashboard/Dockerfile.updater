@@ -1,3 +1,5 @@
+# This Dockerfile runs as an unprivileged user. Use for production.
+
 # Stage 1: Build/preparation stage
 FROM ubuntu:24.04 AS builder
 

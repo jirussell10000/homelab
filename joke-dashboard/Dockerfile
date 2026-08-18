@@ -1,4 +1,4 @@
-# Dockerfile runs as root. Use only during development.
+# Dockerfile runs as root. Use for development only.
 FROM ubuntu:24.04
 
 RUN apt-get update && \
