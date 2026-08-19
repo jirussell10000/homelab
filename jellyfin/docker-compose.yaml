@@ -12,10 +12,12 @@ services:
         source: /home/user/Movies
         target: /Movies
         read_only: true
+        # alternatively: /home/user/Movies:/Movies:ro
       - type: bind
         source: /home/user/Music
         target: /Music
         read_only: true
+        # alternatively: /home/user/Music:/Music:ro
     restart: unless-stopped
     # environment:
       # - JELLYFIN_PublishedServerUrl=<add-url>
