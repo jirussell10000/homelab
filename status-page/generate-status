@@ -5,12 +5,12 @@
 cat << EOF
 <!DOCTYPE html>
 <html>
-<head><title>System Status</title></head>
-<body>
-<h1>System Status</h1>
-<p>Generated: $(date)</p>
-<p>Hostname: $(hostname)</p>
-</body>
+  <head><title>System Status</title></head>
+  <body>
+    <h1>System Status</h1>
+    <p>Generated: $(date)</p>
+    <p>Hostname: $(hostname)</p>
+  </body>
 </html>
 EOF
 
