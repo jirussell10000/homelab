@@ -6,29 +6,32 @@ keys=()
 
 # Check whether ssh-agent is running
 if ssh-add -l >/dev/null 2>&1; then
-  status=$?
-  if [[ $status -eq 2 ]]; then
-    echo "ERROR: Could not connect to ssh-agent (agent is not running)">&2
-    exit 2
-  fi
+    status=$?
+    if [[ $status -eq 2 ]]; then
+        echo "ERROR: Could not connect to ssh-agent (agent is not running)">&2
+        exit 2
+    fi
 fi
 
+# Change to .ssh directory
+cd ~/.ssh || exit
+
 # Add keys to ssh-agent
-for file in ~/.ssh/*; do
-  [[ -f "$file" ]] || continue
-  [[ "$file" == "known_hosts*"  ]] && continue
-  [[ "$file" == "config"  ]] && continue
-  [[ ${file##*.} == "pub" ]] && continue 
+for file in *; do
+    [[ -f "$file" ]] || continue
+    [[ "$file" == known_hosts* ]] && continue
+    [[ "$file" == "config"  ]] && continue
+    [[ ${file##*.} == "pub" ]] && continue 
   
-  if ssh-keygen -l -f "$file" >/dev/null 2>&1; then 
-    ssh-add "$file"
-    keys+=("$file")
-  fi
+    if ssh-keygen -l -f "$file" >/dev/null 2>&1; then 
+        ssh-add "$file"
+        keys+=("$file")
+    fi
 done
 
 if [[ "${#keys[@]}" -gt 0 ]]; then
-  echo -e "\n${#keys[@]} keys are loaded in the agent:"
-  ssh-add -l
+    echo -e "\n${#keys[@]} keys are loaded in the agent:"
+    ssh-add -l
 else
-  echo "No valid private keys were loaded"
+    echo "No valid private keys were loaded"
 fi
