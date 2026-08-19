@@ -16,18 +16,19 @@ fi
 # Add keys to ssh-agent
 for file in ~/.ssh/*; do
   [[ -f "$file" ]] || continue
-  [[ ]]
+  [[ "$file" == "known_hosts*"  ]] && continue
+  [[ "$file" == "config"  ]] && continue
   [[ ${file##*.} == "pub" ]] && continue 
   
   if ssh-keygen -l -f "$file" >/dev/null 2>&1; then 
     ssh-add "$file"
-    keys+="$file"
+    keys+=("$file")
   fi
 done
 
-if [[ echo "${#keys[@]}" -gt 0 ]]; then
+if [[ "${#keys[@]}" -gt 0 ]]; then
   echo -e "\n${#keys[@]} keys are loaded in the agent:"
-  echo "$(ssh-add -l)"
+  ssh-add -l
 else
   echo "No valid private keys were loaded"
 fi
