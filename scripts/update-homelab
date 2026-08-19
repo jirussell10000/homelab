@@ -8,27 +8,28 @@
 #              Create a secret file for the script to reference your password to.
 
 SERVERS=("ubs0"	"ubs1")
-LOGFILE="./update-homelab.log"
-PASSWORD=$(read -r password < ../.secret-password)
+LOG_FILE="./update-homelab.log"
+log_level="${LOG_LEVEL:-info}"
+passwd=$(read -r PASSWORD < ../.secret-password)
 
-echo -e "\e[1;36m[INFO] \e[1;30m$(date +"%F %T") Starting multi-server infrastructure update...\e[0m"
+echo -e "\e[1;36m$log_level \e[1;30m$(date +"%F %T") Starting multi-server infrastructure update...\e[0m"
 
 for SERVER in "${SERVERS[@]}"; do
-  echo -e "\e[1;36m[INFO]\e[1;30m \e[0;33mUpdating server ${SERVER}...\e[0m"
+  echo -e "\e[1;36m$log_level\e[1;30m \e[0;33mUpdating server ${SERVER}...\e[0m"
 
   # Execute commands remotely over SSH. Requires user password on server.
   ssh -t -o ConnectTimeout=5 "$SERVER" "
     [[ -x $(command -v apt-get) ]] && \
-	sudo -S apt-get update <<< "$PASSWORD" && \
+	sudo -S apt-get update && \
 	sudo apt-get upgrade -y && \
 	sudo apt-get autoremove -y && \
 	sudo apt-get clean
-	"
+	" <<< $PASSWORD
 
   if [[ $? -eq 0 ]]; then
-	echo -e "\e[1;36m[INFO]\e[1;30m $(date +"%F %T") Update ${SERVER} (\e[1;32msuccessful\e[1;30m)with exit status 0\e[0m" >> "$LOGFILE"
+	echo -e "\e[1;36m$log_level\e[1;30m $(date +"%F %T") Update $SERVER (\e[1;32msuccessful\e[1;30m)with exit status 0\e[0m" >> "$LOG_FILE"
   else
-  	echo "\e[1;31m[ERROR]\e[0m $(date +"%F %T") Update server ${SERVER} (\e[1;31mfailed\e[0m)" >> "$LOGFILE"
+  	echo "\e[1;31m$log_level\e[0m $(date +"%F %T") Update server $SERVER (\e[1;31mfailed\e[0m)" >> "$LOG_FILE"
   fi
 done
 

@@ -2,7 +2,9 @@
 
 # Loads all SSH private keys into the background authentication helper `ssh-agent`
 
+keys=()
 
+# Check whether ssh-agent is running
 if ssh-add -l >/dev/null 2>&1; then
   status=$?
   if [[ $status -eq 2 ]]; then
@@ -11,18 +13,20 @@ if ssh-add -l >/dev/null 2>&1; then
   fi
 fi
 
+# Add keys to ssh-agent
 for file in ~/.ssh/*; do
   [[ -f "$file" ]] || continue
+  [[ ]]
   [[ ${file##*.} == "pub" ]] && continue 
   
   if ssh-keygen -l -f "$file" >/dev/null 2>&1; then 
     ssh-add "$file"
-    key_added=true
+    keys+="$file"
   fi
 done
 
-if [[ "$key_added" == true ]]; then
-  echo -e "\nKeys are loaded in the agent:"
+if [[ echo "${#keys[@]}" -gt 0 ]]; then
+  echo -e "\n${#keys[@]} keys are loaded in the agent:"
   echo "$(ssh-add -l)"
 else
   echo "No valid private keys were loaded"
