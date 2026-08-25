@@ -4,12 +4,16 @@
 
 keys=()
 
-# Check whether ssh-agent is running
+# Check whether ssh-agent is not running nor has keys loaded
 if ssh-add -l >/dev/null 2>&1; then
     status=$?
     if [[ $status -eq 2 ]]; then
         echo "ERROR: Could not connect to ssh-agent (agent is not running)">&2
         exit 2
+    elif [[ $status -eq 1 ]]; then
+        echo "INFO: No keys are loaded in the agent"
+    else
+        echo "INFO: Keys are loaded in the agent"
     fi
 fi
 
@@ -20,7 +24,7 @@ cd ~/.ssh || exit
 for file in *; do
     [[ -f "$file" ]] || continue
     [[ "$file" == known_hosts* ]] && continue
-    [[ "$file" == "config"  ]] && continue
+    [[ "$file" == config ]] && continue
     [[ ${file##*.} == "pub" ]] && continue 
   
     if ssh-keygen -l -f "$file" >/dev/null 2>&1; then 
