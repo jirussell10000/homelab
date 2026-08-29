@@ -6,7 +6,10 @@ services:
     ports:
       - "1221:1221"
     environment:
+      - APP_BASE_URL=${APP_BASE_URL}
       - AUTH_SECRET=${AUTH_SECRET}
+      - AUTH_FIRST_USER_AS_ADMIN=${AUTH_FIRST_USER_AS_ADMIN}
+      - AUTH_IS_EMAIL_VERIFICATION_REQUIRED=${AUTH_IS_EMAIL_VERIFICATION_REQUIRED}
     volumes:
-      - ./app-data:/app/app-data
+      - ~/papra/app-data:/app/app-data
     user: "${UID}:${GID}"
