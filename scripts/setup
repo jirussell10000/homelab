@@ -1,14 +1,13 @@
-#!/bin/bash
+#/bin/bash
 
-# Description: Link dotfiles to home directory
+# Description: Copy scripts to ~/.local/bin
 
 
-echo "Creating .config directory if it does not exist..."
-mkdir -p ~/.config
+echo "Copying scripts to ~/.local/bin..."
 
-echo "Linking dotfiles to home directory..."
-ln -sf ~/dotfiles/bashrc ~/.bashrc
-ln -sf ~/dotfiles/vimrc ~/.vimrc
-ln -sf ~/dotfiles/starship.toml ~/.config/starship.toml
+for script in *; do
+    [[ -x "$script" ]]
+    cp "$script" ~/.local/bin/"$script"
+done
 
-echo "Dotfiles linked"
+echo "Scripts copied!"
