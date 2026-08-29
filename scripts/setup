@@ -1,13 +1,23 @@
-#/bin/bash
+#!/bin/bash
 
 # Description: Copy scripts to ~/.local/bin
 
 
-echo "Copying scripts to ~/.local/bin..."
+DIR="$HOME/.local/bin"
+
+if [[ -d "$DIR" ]]; then
+  echo "$DIR exists"
+else
+  echo "$DIR does not exist. Creating $DIR..."
+  mkdir -p "$DIR"
+  echo "$DIR created"
+fi
+
+echo "Copying scripts to $DIR..."
 
 for script in *; do
     [[ -x "$script" ]]
-    cp "$script" ~/.local/bin/"$script"
+    cp "$script" "$DIR/$script"
 done
 
 echo "Scripts copied!"
