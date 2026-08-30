@@ -49,5 +49,5 @@ while true; do
 EOF
 
   echo "Got joke: $JOKE"
-  sleep 30
+  sleep 15
 done
