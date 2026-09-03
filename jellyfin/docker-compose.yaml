@@ -4,7 +4,7 @@ services:
     container_name: jellyfin
     user: "1000:1000"
     ports:
-      - 8096:8096/tcp
+      - "8096:8096"
     volumes:
       - /home/user/.config/jellyfin:/config
       - /home/user/.cache/jellyfin:/cache

@@ -2,17 +2,24 @@
 
 # Description: Stages updated files to be commited via git. Commits the files and uploads them to the specified remote repo.
 
+backup() {
+  echo "Staging updated files in current directory..."
+  git add .
 
-echo "Displaying changed files..."
-git status
+  echo "Committing files to local repo..."
+  git commit -m "$(date) $BACKUP_MSG"
 
-echo "Staging updated files in current directory..."
-git add .
+  echo "Pushing updated local repo to remote repo..."
+  git push
 
-echo "Committing files to local repo..."
-git commit -m "backup $(date)"
+  echo "Notes successfully uploaded to remote repo."
+}
 
-echo "Pushing updated local repo to remote repo..."
-git push
+BACKUP_MSG="$1"
 
-echo "Notes successfully uploaded to remote repo."
+if [[ -z "$1" ]]; then
+  echo "Backup commit message needed"
+  exit 1
+else
+  backup
+fi
