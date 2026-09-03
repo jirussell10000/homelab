@@ -1,7 +1,7 @@
 services:
   papra:
     container_name: papra
-    image: ghcr.io/papra-hq/papra:latest
+    image: corentinth/papra:26.6.1-rootless
     restart: unless-stopped
     ports:
       - "1221:1221"
@@ -15,5 +15,5 @@ services:
       - AUTH_IS_EMAIL_VERIFICATION_REQUIRED=${AUTH_IS_EMAIL_VERIFICATION_REQUIRED}
 >>>>>>> 3d9131a14671e8cb8e3c2dc4c20b95d09b819065
     volumes:
-      - ~/papra/app-data:/app/app-data
+      - ~/papra/papra-data:/app/app-data
     user: "${UID}:${GID}"
