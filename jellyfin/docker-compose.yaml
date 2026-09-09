@@ -2,9 +2,9 @@ services:
   jellyfin:
     image: jellyfin/jellyfin:10.11.11
     container_name: jellyfin
-    user: "1000:1000"
-    ports:
-      - "8096:8096"
+    user: 1000:1000
+    ports: 
+      - 8096:8096/tcp
     volumes:
       - /home/user/.config/jellyfin:/config
       - /home/user/.cache/jellyfin:/cache
@@ -23,5 +23,3 @@ services:
       # - JELLYFIN_PublishedServerUrl=<add-url>
     # extra_hosts:
       # - 'host.docker.internal:host-gateway'
-
-
