@@ -1,0 +1,9 @@
+services:
+    web_server:
+        image: nginx
+        contianer_name: nginx_web
+        restart: unless-stopped
+        ports:
+            - "80:80"
+        volumes:
+            - /html
