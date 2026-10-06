@@ -1,14 +1,13 @@
 #!/bin/bash
 
-# Description: This script sets my main host machine running Debian 13+ with all of the tools needed. 
+# Description: This script sets my main host machine running Debian 13+ with all of the tools needed. Superuser permissions are required. 
 
 
 # Add packages that needs to be installed
-PKGS="wget curl git brave-browser ffmpeg yt-dlp openssh-server"
+PKGS="wget curl ca-certificates git brave-browser ffmpeg yt-dlp openssh-server"
 
 sudo apt update
 sudo apt install "$PKGS"
-sudo apt upgrade -y
 
 echo "Installing starship prompt..."
 curl -sS https://starship.rs/install.sh | sh
