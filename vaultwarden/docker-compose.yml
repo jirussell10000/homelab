@@ -1,0 +1,10 @@
+services:
+    vaultwarden:
+        container_name: vaultwarden
+        image: vaultwarden/server:1.37.4-alpine
+        volumes:
+            - ~/vaultwarden/data:/data
+        ports:
+            - "81:80"
+        restart: unless-stopped
+
