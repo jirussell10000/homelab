@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Description: Copy scripts to ~/.local/bin
+# Description: Copy scripts to ~/.local/bin for quick access
 
 
 DIR="$HOME/.local/bin"
@@ -13,11 +13,12 @@ else
   echo "$DIR created"
 fi
 
-echo "Copying scripts to $DIR..."
+echo "Linking scripts to $DIR..."
 
 for script in *; do
+    # Only add 
     [[ -x "$script" ]]
-    cp "$script" "$DIR/$script"
+    ln -sf "$script" "$DIR/$script"
 done
 
-echo "Scripts copied!"
+echo "Scripts successfully copied."

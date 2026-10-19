@@ -3,6 +3,8 @@
 # Description: Checks to see if dependencies are installed for git, docker, and kubernetes.
 
 
+CMD=(git, docker, kubectl)
+
 for cmd in git docker kubectl; do
   if ! command -v "$cmd" &>/dev/null; then
     echo "Error: $cmd is not installed"

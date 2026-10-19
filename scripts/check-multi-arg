@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Checks if more than one argument is given
+
+
+if [[ "$#" -le 1 ]]; then
+    echo "Usage: $0 <arg1> <arg2> [arg ...]"
+    exit 1
+else
+    echo "Multiple arguments given"
+fi

@@ -3,7 +3,7 @@
 # Outputs a fibonacci sequence for a given number.
 
 
-# Check if argument is given
+# Check if one argument is given
 if [[ $# -ne 1 ]]; then
   echo "Usage: $0 <postive_integer>"
   exit 1

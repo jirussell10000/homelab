@@ -3,10 +3,14 @@
 # Description: Checks whether a file exists. If it doesn't it will return an error (exit code: 1) If it does it will process it.
 
 
-if [[ ! -f "$1" ]]; then
-  echo "File not found: $1"
-  exit 1
+if [[ "$#" -ne 1 ]]; then
+    echo "Usage: $0 <file>"
+    exit 1
 fi
 
-echo "Processing $1..."
-exit 0
+if [[ ! -f "$1" ]]; then
+    echo "File not found: $1"
+    exit 1
+else
+    echo "$1 exists"
+fi

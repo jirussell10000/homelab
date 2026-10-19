@@ -1,4 +1,10 @@
 #!/bin/bash
+
+
+# Default name is "world"
 name="${1:-world}"
+
+# Default log level is "info"
 log_level="${LOG_LEVEL:-info}"
+
 echo "Hello, $name (log: $log_level)"

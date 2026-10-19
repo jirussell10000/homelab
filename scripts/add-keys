@@ -2,6 +2,7 @@
 
 # Loads all SSH private keys into the background authentication helper `ssh-agent`
 
+# Creates empty array for keys successfully added to the ssh-agent
 keys=()
 
 # Check whether ssh-agent is not running nor has keys loaded
@@ -25,6 +26,8 @@ for file in *; do
     [[ -f "$file" ]] || continue
     [[ "$file" == known_hosts* ]] && continue
     [[ "$file" == config ]] && continue
+
+    # If file ends with .pub skip it
     [[ ${file##*.} == "pub" ]] && continue 
   
     if ssh-keygen -l -f "$file" >/dev/null 2>&1; then 
@@ -33,6 +36,7 @@ for file in *; do
     fi
 done
 
+# Check if number of successfully added keys
 if [[ "${#keys[@]}" -gt 0 ]]; then
     echo -e "\n${#keys[@]} keys are loaded in the agent:"
     ssh-add -l

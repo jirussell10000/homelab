@@ -12,7 +12,8 @@ backup() {
   echo "Pushing updated local repo to remote repo..."
   git push
 
-  echo "Notes successfully uploaded to remote repo."
+  if [[ "$?" -eq 0 ]]; then
+    echo "Notes successfully uploaded to remote repo."
 }
 
 BACKUP_MSG="$1"

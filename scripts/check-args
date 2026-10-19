@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Checks if one argument is given
+
+
+if [[ $# -ne 1 ]]; then
+    echo "Usage: $0 <arg>"
+    exit 1
+else
+    echo "One argument given"
+fi
