@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Check whether user has privileges to use /dev/kvm required for programs like Rancher Desktop by SUSE
+
+[ -r /dev/kvm ] && [ -w /dev/kvm ] || echo 'insufficient privileges'
