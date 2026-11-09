@@ -4,6 +4,7 @@ metadata:
   labels:
     run: nginx-yaml
     method: fromcodes
+    another: label
   name: nginx-yaml
 spec:
   containers:
