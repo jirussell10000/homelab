@@ -9,14 +9,14 @@ NC='\033[0m' # no color
 
 # Check if correct number of arguments are present
 if [[ $# -ne 2 ]]; then
-  echo "Error: Incorrect number of arguments. Two are required." >&2
+  echo "${RED}Error: Incorrect number of arguments. Two are required.${NC}" >&2
   echo "Usage: $0 <file1> <file2>" >&2
   exit 1
 fi
 
 # Check if both files exist and are readable
 if [[ ! -r "$1" || ! -r "$2" ]]; then
-    echo "Error: One or both of the files not exist or cannot be read (check permissions)"
+    echo -e "${RED}Error: One or both of the files not exist or cannot be read (check permissions)${NC}"
     exit 1
 fi
 
