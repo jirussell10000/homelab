@@ -5,6 +5,8 @@
 
 DIR="$HOME/.local/bin"
 
+unsuccessful_scripts=()
+
 if [[ -d "$DIR" ]]; then
   echo "$DIR exists"
 else
@@ -13,12 +15,17 @@ else
   echo "$DIR created"
 fi
 
-echo "Linking scripts to $DIR..."
+echo "Copying scripts to $DIR..."
 
-for script in *; do
-    # Only add 
-    [[ -x "$script" ]]
-    ln -sf "$script" "$DIR/$script"
+for SCRIPT in *; do 
+    [[ -x "$SCRIPT" ]] || continue
+    cp "$SCRIPT" "$DIR/$SCRIPT"
+    if [[ "$?" -ne 0 ]]; then
+        echo "error: Script $SCRIPT copy unsuccessful"
+        unsuccessful_scripts+=("$SCRIPT")
+    else
+        echo "info: Script $SCRIPT successfully copied"
+    fi
 done
 
-echo "Scripts successfully copied."
+echo "Copying scripts completed"

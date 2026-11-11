@@ -2,6 +2,10 @@
 
 # Description: Checks whether two files are the same using SHA-256 hash pattern comparison.
 
+# Define color variables
+RED='\033[1;31m'
+GREEN='\033[1;32m'
+NC='\033[0m' # no color
 
 # Check if correct number of arguments are present
 if [[ $# -ne 2 ]]; then
@@ -10,15 +14,26 @@ if [[ $# -ne 2 ]]; then
   exit 1
 fi
 
+# Check if both files exist and are readable
+if [[ ! -r "$1" || ! -r "$2" ]]; then
+    echo "Error: One or both of the files not exist or cannot be read (check permissions)"
+    exit 1
+fi
+
 # Check whether busybox is installed. If not install it.
 command -v busybox &>/dev/null || sudo apt-get install busybox
 
-hash1="$(busybox sha256sum $1)"
-hash2="$(busybox sha256sum $2)"
+HASH1="$(busybox sha256sum $1)"
+HASH1="${HASH1%% *}"
+echo "file1: ${1##*/} hash: ${HASH1}"
+
+HASH2="$(busybox sha256sum $2)"
+HASH2="${HASH2%% *}"
+echo "file2: ${2##*/} hash: ${HASH2}"
 
 # Compare file hash patterns
-if [[ "$hash1" != "$hash2" ]]; then
-  echo "Files are different"
+if [[ "$HASH1" != "$HASH2" ]]; then
+  echo -e "${RED}Files are different${NC}"
 else
-  echo "Files are the same"
+  echo -e "${GREEN}Files are the same${NC}"
 fi
