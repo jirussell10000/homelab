@@ -1,10 +1,3 @@
-"""Removes the background color on an image
-
-Usage: 
-    python remove_background.py
-"""
-
-
 import sys
 
 from PIL import Image

@@ -1,9 +1,3 @@
-"""Inverts the colors of images.
-
-Usage:
-    python invert_colors.py
-"""
-
 import sys
 import os
 
