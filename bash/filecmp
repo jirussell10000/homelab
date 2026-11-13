@@ -1,22 +1,22 @@
 #!/bin/bash
 
-# Description: Checks whether two files are the same using SHA-256 hash pattern comparison.
+# Description: Checks whether two files are the same using SHA-256 hash pattern comparison using BusyBox
 
-# Define color variables
+# Define ANSI color variables
 RED='\033[1;31m'
 GREEN='\033[1;32m'
 NC='\033[0m' # no color
 
 # Check if correct number of arguments are present
 if [[ $# -ne 2 ]]; then
-  echo "${RED}Error: Incorrect number of arguments. Two are required.${NC}" >&2
-  echo "Usage: $0 <file1> <file2>" >&2
+  echo -e "${RED}error: Incorrect number of arguments. Two are required.${NC}" >&2
+  echo -e "usage: $0 <file1> <file2>" >&2
   exit 1
 fi
 
 # Check if both files exist and are readable
 if [[ ! -r "$1" || ! -r "$2" ]]; then
-    echo -e "${RED}Error: One or both of the files not exist or cannot be read (check permissions)${NC}"
+    echo -e "${RED}error: One or both of the files not exist or cannot be read (check permissions)${NC}"
     exit 1
 fi
 

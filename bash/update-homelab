@@ -12,10 +12,10 @@ LOG_FILE="./update-homelab.log"
 log_level="${LOG_LEVEL:-info}"
 passwd=$(read -r PASSWORD < ../.secret-password)
 
-echo -e "\e[1;36m$log_level \e[1;30m$(date +"%F %T") Starting multi-server infrastructure update...\e[0m"
+echo -e "[1;36m$log_level [1;30m$(date +"%F %T") Starting multi-server infrastructure update...[0m"
 
 for SERVER in "${SERVERS[@]}"; do
-  echo -e "\e[1;36m$log_level\e[1;30m \e[0;33mUpdating server ${SERVER}...\e[0m"
+  echo -e "[1;36m$log_level[1;30m [0;33mUpdating server ${SERVER}...[0m"
 
   # Execute commands remotely over SSH. Requires user password on server.
   ssh -t -o ConnectTimeout=5 "$SERVER" "
@@ -27,9 +27,9 @@ for SERVER in "${SERVERS[@]}"; do
 	" <<< $PASSWORD
 
   if [[ $? -eq 0 ]]; then
-	echo -e "\e[1;36m$log_level\e[1;30m $(date +"%F %T") Update $SERVER (\e[1;32msuccessful\e[1;30m)with exit status 0\e[0m" >> "$LOG_FILE"
+	echo -e "[1;36m$log_level[1;30m $(date +"%F %T") Update $SERVER ([1;32msuccessful[1;30m)with exit status 0[0m" >> "$LOG_FILE"
   else
-  	echo "\e[1;31m$log_level\e[0m $(date +"%F %T") Update server $SERVER (\e[1;31mfailed\e[0m)" >> "$LOG_FILE"
+  	echo -e "[1;31m$log_level[0m $(date +"%F %T") Update server $SERVER ([1;31mfailed[0m)" >> "$LOG_FILE"
   fi
 done
 

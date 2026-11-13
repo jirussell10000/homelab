@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: raven-test
+  name: raven-test
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: raven-test
+  template:
+    metadata:
+      labels:
+        app: raven-test
+    spec:
+      containers:
+      - image: nginx:1.31-alpine3.24
+        name: nginx
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+        maxUnavailable: 1
+        maxSurge: 1
+
